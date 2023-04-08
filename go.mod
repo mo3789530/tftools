@@ -1,4 +1,4 @@
-module tftools
+module github.com/mo3789530/tftools
 
 go 1.20
 

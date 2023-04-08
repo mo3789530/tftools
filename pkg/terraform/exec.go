@@ -26,12 +26,14 @@ type Exec interface {
 type exec struct {
 	Version  string
 	IsOutput bool
+	IsJson   bool
 }
 
-func NewExec(version string, isOutput bool) Exec {
+func NewExec(version string, isOutput bool, isJson bool) Exec {
 	return &exec{
 		Version:  version,
 		IsOutput: isOutput,
+		IsJson:   isJson,
 	}
 }
 
@@ -75,8 +77,8 @@ func (e *exec) Plan(tf *tfexec.Terraform) (bool, error) {
 	return result, nil
 }
 
-func (e *exec) Show(tf *tfexec.Terraform, isJson bool) (string, error) {
-	if isJson {
+func (e *exec) Show(tf *tfexec.Terraform) (string, error) {
+	if e.IsJson {
 		result, err := e.showJson(tf)
 		if err != err {
 			return "", err
@@ -166,9 +168,11 @@ func (e *exec) State(tf *tfexec.Terraform, isRemote bool) (string, error) {
 		return "", err
 	}
 
-	ShowStateFileJson(state)
-
-	ShowStateFileRaw(state)
+	if e.IsJson {
+		return ShowStateFileJson(state), nil
+	} else {
+		return ShowStateFileRaw(state), nil
+	}
 
 	return "", nil
 

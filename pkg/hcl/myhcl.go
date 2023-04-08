@@ -12,19 +12,21 @@ import (
 	"github.com/zclconf/go-cty/cty"
 )
 
-func HclBytesToJson(hclBytes []byte) {
+func HclBytesToJson(hclBytes []byte) string {
 
 	res, err := hcl2json.Bytes(hclBytes, "", hcl2json.Options{})
 	if err != nil {
 		log.Fatalln(err)
 	}
 
-	fmt.Println(string(res))
+	// fmt.Println(string(res))
+
+	return string(res)
 
 }
 
-func HclStringToJson(hcl string) {
-	HclBytesToJson([]byte(hcl))
+func HclStringToJson(hcl string) string {
+	return HclBytesToJson([]byte(hcl))
 }
 
 func JsonToHcl(jsonStr string) string {

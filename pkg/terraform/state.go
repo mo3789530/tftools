@@ -12,7 +12,7 @@ import (
 	"github.com/zclconf/go-cty/cty"
 )
 
-func ShowStateFileRaw(state *tfjson.State) {
+func ShowStateFileRaw(state *tfjson.State) string {
 	file := hclwrite.NewEmptyFile()
 	body := file.Body()
 
@@ -23,7 +23,8 @@ func ShowStateFileRaw(state *tfjson.State) {
 		}
 		writeBodyHcl(body, child.Resources)
 	}
-	fmt.Println(string(file.Bytes()))
+	// fmt.Println(string(file.Bytes()))
+	return string(file.Bytes())
 }
 
 func writeBodyHcl(body *hclwrite.Body, resources []*tfjson.StateResource) {
@@ -79,11 +80,13 @@ func writeBodyHcl(body *hclwrite.Body, resources []*tfjson.StateResource) {
 	}
 }
 
-func ShowStateFileJson(state *tfjson.State) {
+func ShowStateFileJson(state *tfjson.State) string {
 	jsonByte, err := json.Marshal(state)
 	if err != nil {
 		log.Printf("error convert to json %s", err)
 
 	}
-	fmt.Println(string(jsonByte))
+	// fmt.Println(string(jsonByte))
+
+	return string(jsonByte)
 }

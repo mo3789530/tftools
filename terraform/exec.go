@@ -18,7 +18,7 @@ const (
 type Exec interface {
 	Init(workingDir string) (*tfexec.Terraform, error)
 	Plan(tf *tfexec.Terraform) (bool, error)
-	Show(tf *tfexec.Terraform, isJson bool) (string, error)
+	Show(tf *tfexec.Terraform) (string, error)
 	Apply(tf *tfexec.Terraform) error
 	State(tf *tfexec.Terraform, isRemote bool) (string, error)
 }

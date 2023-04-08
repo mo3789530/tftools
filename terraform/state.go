@@ -4,7 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
-	myhcl "tftools/pkg/hcl"
+
+	myhcl "github.com/mo3789530/tftools/hcl"
 
 	"github.com/hashicorp/hcl/v2/hclsyntax"
 	"github.com/hashicorp/hcl/v2/hclwrite"
